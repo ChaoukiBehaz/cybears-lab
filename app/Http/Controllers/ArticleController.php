@@ -12,6 +12,7 @@ class ArticleController extends Controller
     public function index(Request $request)
     {
         $db = DB::getPdo();
+        $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         if ($request->has('title')) {
             $title = $request->input('title');
             $query = "SELECT * FROM articles WHERE title like '$title%'";
@@ -19,7 +20,6 @@ class ArticleController extends Controller
             $query = "SELECT * FROM articles";
         }
         $query .= " ORDER BY created_at DESC";
-        
         $statement = $db->query($query);
         $articles = $statement->fetchAll(PDO::FETCH_OBJ);
 
