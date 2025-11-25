@@ -47,7 +47,7 @@
                         <span class="absolute -inset-1.5"></span>
                         Create Article
                     </a>
-                    <form action="{{ route('auth.logout') }}" method="POST">
+                    <form action="{{ route('logout') }}" method="POST">
                         <button type="submit" class="cursor-pointer relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-500">
                             <span class="absolute -inset-1.5"></span>
                             Logout
@@ -55,7 +55,7 @@
                     </form>
             @endauth
             @guest
-                <a href="{{ route('auth.login') }}" class="relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-500">
+                <a href="{{ route('login') }}" class="relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-500">
                     <span class="absolute -inset-1.5"></span>
                     Login
                 </a>

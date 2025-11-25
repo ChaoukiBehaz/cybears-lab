@@ -26,16 +26,18 @@ class ArticleController extends Controller
         return view('welcome', ['articles' => $articles]);
     }
 
+
+    public function store()
+    {
+        return view('articles.store');
+    }
+
     public function show($id)
     {
         $article = Article::find($id);
         return view('articles.show', ['article' => $article]);
     }
 
-    public function store()
-    {
-        return view('articles.store');
-    }
 
     public function create(Request $request)
     {
