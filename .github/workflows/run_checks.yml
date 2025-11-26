@@ -1,0 +1,30 @@
+name: Run security checks
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+jobs:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v6
+          with:
+            branch: main
+        - name: Set up PHP
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: '8.3'
+            extensions: mbstring, intl, xml, curl, zip, gd, bcmath
+            ini-values: post_max_size=256M, upload_max_filesize=256M, memory_limit=512M
+            tools: composer:v2 
+        - name: "Installation des librairies"
+          run: composer install --no-progress --no-suggest --prefer-dist
+        - name: "Migrate laravel database"
+          run: php artisan migrate --force
+        - name: "Generate key"
+          run: php artisan key:generate
+        - name: Run test
+          run: php artisan test
+        
