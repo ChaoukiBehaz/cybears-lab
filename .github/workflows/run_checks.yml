@@ -13,6 +13,12 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v6
               
+            - name: Install Semgrep
+              run: pip install semgrep
+
+            - name: Run Semgrep Analysis
+              run: semgrep scan --config auto .
+
             - name: Set up PHP
               uses: shivammathur/setup-php@v2
               with:
@@ -23,7 +29,11 @@ jobs:
 
             - name: "Installation des librairies"
               run: composer install --no-progress --no-suggest --prefer-dist
-        
+            
+            - name: "create env"
+              run: cp .env.example .env
+                   PHP artisan key:generate 
+
             - name: "Migrate laravel database"
               run: php artisan migrate --force
             
