@@ -32,4 +32,30 @@ jobs:
               
             - name: Run test
               run: php artisan test
+
+name: Semgrep Scan
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  semgrep:
+    name: Run Semgrep
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Semgrep
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install semgrep
+
+      - name: Run Semgrep (Default Rules)
+        run: |
+          semgrep scan --config auto
+
         
